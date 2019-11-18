@@ -1,7 +1,9 @@
 package com.codeclan.pirateservice;
 
 import com.codeclan.pirateservice.models.Pirate;
+import com.codeclan.pirateservice.models.Ship;
 import com.codeclan.pirateservice.repositories.PirateRepository;
+import com.codeclan.pirateservice.repositories.ShipRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,9 @@ class PirateServiceApplicationTests {
 
 	@Autowired
 	PirateRepository pirateRepository;
+	//dependency injection
+	@Autowired
+	ShipRepository shipRepository;
 
 	@Test
 	void contextLoads() {
@@ -21,7 +26,9 @@ class PirateServiceApplicationTests {
 
 	@Test
 	public void createPirate() {
-		Pirate jack = new Pirate("Jack", "Sparrow", 54);
+		Ship ship = new Ship("The Flying Ductchman");
+		shipRepository.save(ship);
+		Pirate jack = new Pirate("Jack", "Sparrow", 54,ship);
 		pirateRepository.save(jack);
 
 	}

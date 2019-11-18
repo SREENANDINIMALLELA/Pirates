@@ -1,5 +1,7 @@
 package com.codeclan.pirateservice.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,15 +22,19 @@ public class Pirate {
     @Column(name="age")
     private int age;
 
+
+    // with out this we will get stack overflow
+    @JsonIgnoreProperties("pirates")
     @ManyToOne
     // it takes the instance of the ship but stores only the id in to the database
     @JoinColumn(name = "ship_id",nullable=false)
     private Ship ship;
 
-    public Pirate(String firstName, String lastName, int age) {
+    public Pirate(String firstName, String lastName, int age,Ship ship) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
+        this.ship=ship;
     }
 
     // default constructor
@@ -65,5 +71,13 @@ public class Pirate {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Ship getShip() {
+        return ship;
+    }
+
+    public void setShip(Ship ship) {
+        this.ship = ship;
     }
 }

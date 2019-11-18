@@ -1,16 +1,20 @@
 package com.codeclan.pirateservice.models;
 
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
+  @Entity
 
+  @Table(name = "ships")
 public class Ship {
-
-    private Long id ;
-
-    private String name ;
+      @Id
+      @GeneratedValue(strategy = GenerationType.IDENTITY)
+      @Column(name="id")
+    private Long id;
+      @Column(name="name")
+    private String name;
 
     //telling pirates have a ship fk in it
     @OneToMany(mappedBy = "ship")
@@ -19,10 +23,10 @@ public class Ship {
 
     public Ship(String name) {
         this.name = name;
-        this.pirates= new ArrayList<Pirate>();
+        this.pirates = new ArrayList<Pirate>();
     }
 
-    public Ship(){
+    public Ship() {
 
     }
 
@@ -49,7 +53,8 @@ public class Ship {
     public void setPirates(List<Pirate> pirates) {
         this.pirates = pirates;
     }
-    public void addPirate(Pirate pirate){
+
+    public void addPirate(Pirate pirate) {
         this.pirates.add(pirate);
     }
 }
